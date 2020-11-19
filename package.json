@@ -1,0 +1,23 @@
+{
+  "name": "grid_square",
+  "version": "1.0.0",
+  "description": "socket example",
+  "scripts": {
+    "start": "node server/main.js",
+    "dev": "nodemon server/main.js"
+  },
+  "keywords": [
+    "sockets",
+    "p5.js",
+    "node"
+  ],
+  "type": "module",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^14.14.8",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.6",
+    "socket.io": "^3.0.0"
+  }
+}
