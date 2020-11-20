@@ -1,7 +1,6 @@
 import express from "express"
 import {Server} from "socket.io"
 import {AnAnotherClass, ExternalClass, simpleFunction} from "./sampleModules.js"
-import {SketchApp} from "./SketchApp.js"
 
 // simple class and function from other files importation
 const externalClass 					= new ExternalClass()
@@ -15,26 +14,19 @@ const server = app.listen(3000)
 
 app.use(express.static('public'))
 
-console.log("socket server is running")
+console.info("server is running on http://localhost:3000/")
 
 const io = new Server(server)
 
-/**
- * @type {SketchApp[]} Array with all Web app connected on server
- */
-const appConnected = []
-
-io.sockets.on('connection', () => {
-	appConnected.push( new SketchApp() )
-})
-
-function newConnection(socket) {
+io.sockets.on('connection', socket => {
 	console.log("new connection : " + socket.id)
 
-	socket.on('mouse', mouseMsg)
+	socket.on('newSketchData', data => {
+		onNewSketchData(data, socket)
+	})
+})
 
-	function mouseMsg(data){
-		socket.broadcast.emit('mouse',data)
-		console.log(data)
-	}
+function onNewSketchData(data, socket) {
+	console.log(data)
+	socket.broadcast.emit('sketchDataUpdated',data)
 }
