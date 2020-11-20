@@ -145,8 +145,4 @@ class Mover {
 
     return this.r * 2 * factor
   }
-
-  _relDiff(a, b) {
-    return  100 * Math.abs( ( a - b ) / ( (a+b)/2 ) );
-  }
 }

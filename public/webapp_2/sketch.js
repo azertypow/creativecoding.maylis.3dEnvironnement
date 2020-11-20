@@ -17,7 +17,9 @@ function draw() {
 }
 
 socket.on('sketchDataUpdated', (data) => {
-    mover.pos.x = data[0].x
-    mover.pos.y = data[0].y
-    mover.pos.z = data[0].z
+    if(mover !== undefined) {
+        mover.pos.x = data[0].x
+        mover.pos.y = data[0].y
+        mover.pos.z = data[0].z
+    }
 })
