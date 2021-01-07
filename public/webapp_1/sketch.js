@@ -36,14 +36,6 @@ function draw() {
     ])
 }
 
-function mouseClicked() {
-    gravity.set(
-        gravity.x * -1,
-        gravity.y * -1,
-        gravity.z * -1
-    )
-}
-
 function setGradient(c1, c2) {
     noFill()
     for (var y = 0; y < height; y++) {
