@@ -1,148 +1,93 @@
-class Mover {
-  /**
-   * @typedef {"front"|"right"|"back"|"left"|"bottom"|"top"} ViewPosition
-   */
+function Mover(m, x, y, z = 1) {
+  /*this.x = x;
+  this.y = y;
+  this.z = 1;*/
+  this.mass = m;
+  this.position = createVector(x, y, z);
+  this.velocity = createVector(0, 0);
+  this.acceleration = createVector(0, 0);
+  this.angle = 0;
+  this.r = 100;
 
-  /**
-   * @type {ViewPosition}
-   */
-  viewPosition
 
-  /** @type {Vector} */
-  pos = createVector(0, 0, 0)
-  /** @type {Vector} */
-  vel = createVector(0, 0, 0)
-  /** @type {Vector} */
-  acc = createVector(0, 0, 0)
-  r = 16
+  // Newton's 2nd law: F = M * A
+  // or A = F / M
+  this.applyForce = function(force) {
+    let newAcceleration = p5.Vector.div(force, this.mass);
+    this.acceleration.add(newAcceleration);
+  };
 
-  // spaceLimits
-  minX = this.r
-  maxX = 400 - this.r
+  this.update0 = function() {
+    this.velocity.add(this.acceleration);
+    this.position.add(this.velocity);
+    // We must clear acceleration each frame
+    this.acceleration.mult(0);
+  };
 
-  minY = this.r
-  maxY = 400 - this.r
-
-  minZ = this.r
-  maxZ = 400 - this.r
-
-  /**
-   * @param {ViewPosition} viewPosition
-   * @param {number} x
-   * @param {number} y
-   * @param {number} z
-   */
-  constructor(viewPosition, x = 0, y = 0, z = 0) {
-    if(typeof viewPosition !== "string") console.error("first argument must be type of ViewPosition")
-    this.viewPosition = viewPosition
-    this.pos = createVector(x, y, z)
+  this.randomOrder = function() {
+    this.position.x = random(-width / 2, width / 2);
+    this.position.y = random(-height / 2, height / 2);
+    this.mass = random(20, 60);
   }
 
-  applyForce(force) {
-    this.acc.add(force);
+  this.randomOrder2 = function() {
+    this.position.x = random(width);
+    this.position.y = random(height);
+    this.mass = random(1, 60);
   }
 
 
-  edges() {
-    if (this.pos.x >= this.maxX) {
-
-      this.pos.x = this.maxX;
-      this.vel.x *= -1;
-
-    } else if (this.pos.x <= this.minX ) {
-
-      this.pos.x = this.minX;
-      this.vel.x *= -1;
-
-    }
-
-    if ( this.pos.y >= this.maxY ) {
-
-      this.pos.y = this.maxY;
-      this.vel.y *= -1;
-
-    } else if ( this.pos.y <= this.minY ) {
-
-      this.pos.y = this.minY
-      this.vel.y *= -1
-
-    }
-
-    if ( this.pos.z >= this.maxZ ) {
-
-      this.pos.z = this.maxZ;
-      this.vel.z *= -1;
-
-    } else if ( this.pos.z <= this.minZ ) {
-
-      this.pos.z = this.minZ;
-      this.vel.z *= -1;
-
-    }
-
-
+  this.update1 = function() {
+    this.angle = this.angle + 0.1;
   }
 
-
-  update() {
-    this.vel.add(this.acc);
-    this.pos.add(this.vel);
-    this.acc.set(0, 0, 0);
+  this.update2 = function() {
+    this.velocity.y *= -0.5;
+    this.position.x -= 1;
   }
 
-  show() {
+  this.display0 = function() {
     noStroke();
-    fill(255);
+    fill(255, fade);
+    ellipse(this.position.x, this.position.y, this.mass * 16, this.mass * 16);
+  };
 
-    switch ( this.viewPosition) {
-      case "front":
-        ellipse(this.pos.x, this.pos.y, this.depthEmulation)
-        break
+  this.display1 = function() {
+    push();
+    translate(width / 2, height / 2);
+    rotate(this.angle);
+    noStroke();
+    fill(255, fade);
+    ellipse(this.position.x, this.position.y, this.mass, this.mass);
+    pop();
+  };
 
-      case "right":
-        break
+  this.display2 = function() {
+    noStroke();
+    fill(255, fade);
+    ellipse(this.position.x, this.position.y, this.mass, this.mass);
+  };
 
-      case "back":
-        break
 
-      case "left":
-        break
-
-      case "bottom":
-        break
-
-      case "top":
-        ellipse(this.pos.x, this.pos.z, this.depthEmulation)
-        break
+  this.checkEdges = function() {
+    if (this.position.y > (height - this.mass * 8)) {
+      this.velocity.y *= -0.9;
+      this.position.y = (height - this.mass * 8);
     }
-  }
+  };
 
-  get depthEmulation() {
-
-    let factor = 1
-
-    switch ( this.viewPosition) {
-      case "front":
-        factor = this.pos.z / this.maxZ
-        break
-
-      case "right":
-        break
-
-      case "back":
-        break
-
-      case "left":
-        break
-
-      case "bottom":
-        break
-
-      case "top":
-        factor = 1 - this.pos.y / this.maxY
-        break
+  this.checkRectangleEdges0 = function() {
+    if (this.position.y > 155 && this.position.x > width / 4 && this.position.x < 360) {
+      this.velocity.y *= -0.5;
+      this.position.y = (155 - this.mass * 4);
     }
+  };
 
-    return this.r * 2 * factor
-  }
+  this.checkRectangleEdges2 = function() {
+    if (this.position.y > height - 100 || this.position.y < 100 || this.position.x > width - 100 || this.position.x < 100) {
+      this.position.x = width - this.diameter / 2;
+
+    }
+  };
+
 }

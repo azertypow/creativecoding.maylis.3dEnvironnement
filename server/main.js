@@ -31,5 +31,6 @@ io.sockets.on('connection', socket => {
 })
 
 function onNewSketchData(data, socket) {
+	console.log(data)
 	socket.broadcast.emit('sketchDataUpdated',data)
 }

@@ -48,11 +48,14 @@ function Bubble(x,y) {
 
   this.display5 = function() {
     let jump = 50;
-    for (this.y = 0; this.y < 3; this.y++) {
-      for (this.x = 0; this.x < 11; this.x++) {
+
+    for (let row = 0; row < 3; row++) {
+      for (let column = 0; column < 11; column++) {
         noStroke();
         fill(random(255));
-        ellipse(this.x * (jump - 6) + 100, this.y * jump + 95, 30, 30);
+        this.x = column * (jump - 6) + 100
+        this.y = row * jump + 95
+        ellipse(this.x, this.y, 30, 30);
       }
     }
   }
@@ -73,7 +76,7 @@ function Bubble(x,y) {
     noStroke();
     fill(200);
 
-    //ellipse 1 Top Left   
+    //ellipse 1 Top Left
     x1 = x1 + move;
     y1 = y1 + move;
     ellipse(x1, y1, 40, 40);

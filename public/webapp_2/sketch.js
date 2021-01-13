@@ -1,25 +1,22 @@
 const socket = io.connect('http://localhost:3000')
 
-
-let
-    /** @type {Mover} */
-    mover
+let data = {
+    arrayOfMovers:[],
+    arrayOfBubbles: [],
+}
 
 function setup() {
     createCanvas(400, 400)
-    mover = new Mover("top", 200, 200)
 }
 
 function draw() {
     background(0, 0, 255)
 
-    mover.show()
+    for(const mover of data.arrayOfMovers) {
+        ellipse(mover.y, mover.z, 10, 10)
+    }
 }
 
-socket.on('sketchDataUpdated', (data) => {
-    if(mover !== undefined) {
-        mover.pos.x = data[0].x
-        mover.pos.y = data[0].y
-        mover.pos.z = data[0].z
-    }
+socket.on('sketchDataUpdated', (dataFromServer) => {
+    data = dataFromServer
 })
