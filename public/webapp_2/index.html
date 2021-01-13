@@ -4,17 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Top</title>
-
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
+
+<div class="zone-detections">
+    <div class="zone-detections__top-left"></div>
+    <div class="zone-detections__top-right"></div>
+    <div class="zone-detections__bottom-right"></div>
+    <div class="zone-detections__bottom-left"></div>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
 
 <script src="/modules/p5.min.js"></script>
 <script src="/modules/p5.dom.min.js"></script>
 <script src="/modules/p5.touchgui.js"></script>
 <script src="/modules/getNexState.js"></script>
-<script src="/socket.io/socket.io.js"></script>
+
 <script src="sketch.js"></script>
-<script src="/modules/mover.js"></script>
+
 </body>
 </html>
