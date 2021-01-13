@@ -53,6 +53,12 @@ class AreaDetections {
         this.top_right.addEventListener(    "click",    () => {this.#areaClicked(AreaDetections.POSE.top_right)})
         this.bottom_right.addEventListener( "click",    () => {this.#areaClicked(AreaDetections.POSE.bottom_right)})
         this.bottom_left.addEventListener(  "click",    () => {this.#areaClicked(AreaDetections.POSE.bottom_left)})
+
+        this.top_left.addEventListener(     "touchend",    () => {this.#areaClicked(AreaDetections.POSE.top_left)})
+        this.top_right.addEventListener(    "touchend",    () => {this.#areaClicked(AreaDetections.POSE.top_right)})
+        this.bottom_right.addEventListener( "touchend",    () => {this.#areaClicked(AreaDetections.POSE.bottom_right)})
+        this.bottom_left.addEventListener(  "touchend",    () => {this.#areaClicked(AreaDetections.POSE.bottom_left)})
+
         this.onActivatedAreaClick = onActivatedAreaClick
     }
 
