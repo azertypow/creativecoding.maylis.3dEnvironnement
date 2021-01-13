@@ -1,8 +1,6 @@
 //const socket = io.connect('http://192.168.43.175:3000')
 const socket = io.connect('http://localhost:3000')
 
-
-// todo: il manque une entré dans le tableau (10 state possible[0, 1, 2, … 9], et seulement 8 lignes)
 let phrases = [
     "Question fall on me like snowballs. Where am I ? \nThey push in a strange place, where I feel lost.",
 
@@ -20,7 +18,9 @@ let phrases = [
 
     "The space around me is bright.\nWhite, pure white. \nThere’s any movement. \nThe space in front of me is crowdy. \nDark. With distractions.",
 
-    "I feel nothing. I am locked in this space. \nI try to interact with this outside space,\nbut no one notice my attempts. \nI am trapped."
+    "I feel nothing. I am locked in this space. \nI try to interact with this outside space,\nbut no one notice my attempts. \nI am trapped.",
+
+    "end"
 ];
 
 let value = 0;
@@ -53,35 +53,6 @@ function draw() {
 function keyPressed() {
     socket.emit( "stateChange", getNexState(state) )
     console.log("emit stateChange")
-
-    // todo: remove this code
-    // timer = millis();
-    // fadeOut = 255;
-    //
-    // if (key == "z") {
-    //     state = -1;
-    // } else if (key == "a") {
-    //     state = 0;
-    // } else if (key == "b") {
-    //     state = 1;
-    // } else if (key == "c") {
-    //     state = 2;
-    // } else if (key == "d") {
-    //     state = 3;
-    // } else if (key == "e") {
-    //     state = 4;
-    // } else if (key == "f") {
-    //     state = 5;
-    // } else if (key == "g") {
-    //     state = 6;
-    // } else if (key == "h") {
-    //     state = 7;
-    // } else if (key == "i") {
-    //     state = 8;
-    // } else if (key == "j") {
-    //     state = 9;
-    // }
-    // -----
 }
 
 function textBox() {

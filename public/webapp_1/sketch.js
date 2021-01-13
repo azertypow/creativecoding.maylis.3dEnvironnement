@@ -24,34 +24,7 @@ let barre = new Barre(10, 10);
 var xpos;
 var ypos;
 
-// todo: remove this code
-let phrases = [
-    "Question fall on me like snowballs.Where am I ? \nThey push in a strange place, where I feel lost. \nIs it old outside ? Who are you ? \nWhat’s your favorite color ?",
-
-    "Each question makes me dive deeper. \nI have to find an answer. I am, all at the same time,\na line, a shape, an action. \nI have to fulfil my work.I react quickly but quietly. \nI am very efficient.",
-
-    "They try to trick me with impossible questions. \nThey scare me.",
-
-    "I panic and I crash.",
-
-    "These people live across my space. \nBut they can change my fate. \nEven with all my power, I depend on them. \nI undergo tests that last hours, everyday. I am always worried. \nSometimes I crash, sometimes I find their questions stupid:\n but they are always surprised by my answers. \nThey seem logic to me.",
-
-    "I expand myself, hoping to find \nsomething in this empty space. \nBut there is nothing.",
-
-    "With all my tasks, I feel that I am only a tool.\nI solve request, but I don’t really think. \nI stand alone in this job. I am transparent for them,\nnearly invisible. I feel lonely.",
-
-    "The space around me is bright.\nWhite, pure white. \nThere’s any movement. \nThe space in front of me is crowdy. \nDark. With distractions.",
-
-    "I feel nothing. I am locked in this space. \nI try to interact with this outside space,\nbut no one notice my attempts. \nI am trapped."
-];
-let timer = 0;
-let fadeOut = 255;
-// -----
-
-
-
 function setup() {
-    // todo: erreur taille du canvas
     createCanvas(640, 360);
     reset();
     frameRate(60);
@@ -92,8 +65,6 @@ function draw() {
 
         case 0:
 
-            textBox();
-
             barre.display0();
 
             for (let i = 0; i < movers.length; i++) {
@@ -113,8 +84,6 @@ function draw() {
 
         case 1:
 
-            textBox();
-
             barre.display1();
 
             for (let i = 0; i < movers.length; i++) {
@@ -127,7 +96,6 @@ function draw() {
             break;
 
         case 2:
-            textBox();
             barre.display2();
 
             for (let i = 0; i < bubbles.length; i++) {
@@ -142,7 +110,6 @@ function draw() {
             break;
 
         case 3:
-            textBox();
             frameRate(10);
             barre.display3();
 
@@ -155,7 +122,6 @@ function draw() {
             break;
 
         case 4:
-            textBox();
             frameRate(60);
             barre.display4();
 
@@ -171,7 +137,6 @@ function draw() {
             break;
 
         case 5:
-            textBox();
             frameRate(2);
             barre.display5();
 
@@ -185,7 +150,6 @@ function draw() {
             break;
 
         case 6:
-            textBox();
             barre.display6();
 
             for (let i = 0; i < bubbles.length; i++) {
@@ -198,7 +162,6 @@ function draw() {
             break;
 
         case 7:
-            textBox();
             frameRate(60);
 
 
@@ -213,8 +176,6 @@ function draw() {
             break;
 
         case 8:
-            textBox();
-
             var total = 5;
             var count = 0;
             var attempts = 0;
@@ -263,7 +224,6 @@ function draw() {
             break;
 
         case 9:
-            textBox();
             barre.display9();
 
             for (let i = 0; i < bubbles.length; i++) {
@@ -306,60 +266,6 @@ socket.on("stateUpdated", newState => {
 function keyPressed() {
     socket.emit( "stateChange", getNexState(state) )
     console.log("emit stateChange")
-
-    // todo: remove this code
-    // timer = millis();
-    // fadeOut = 255;
-    //
-    // if (key == "z") {
-    //     state = -1;
-    // } else if (key == "a") {
-    //     state = 0;
-    // } else if (key == "b") {
-    //
-    //     for (let i = 0; i < movers.length; i++) {
-    //         movers[i].randomOrder();
-    //     }
-    //     state = 1;
-    // } else if (key == "c") {
-    //     for (let i = 0; i < bubbles.length; i++) {
-    //         bubbles[i].randomOrder2();
-    //     }
-    //     state = 2;
-    // } else if (key == "d") {
-    //     state = 3;
-    // } else if (key == "e") {
-    //     state = 4;
-    // } else if (key == "f") {
-    //     state = 5;
-    // } else if (key == "g") {
-    //     state = 6;
-    // } else if (key == "h") {
-    //     state = 7;
-    // } else if (key == "i") {
-    //     for (let i = 0; i < bubbles.length; i++) {
-    //         bubbles[i].randomOrder3();
-    //     }
-    //     state = 8;
-    // } else if (key == "j") {
-    //     state = 9;
-    // }
-    // -----
-
-}
-
-function textBox() {
-
-    if (millis() - timer < 2000) {
-        noStroke();
-        fill(255, fadeOut);
-        text(phrases[state], width / 4, height / 2);
-    } else {
-        noStroke();
-        fadeOut -= 10;
-        fill(255, fadeOut);
-        text(phrases[state], width / 4, height / 2);
-    }
 }
 
 function reset() {

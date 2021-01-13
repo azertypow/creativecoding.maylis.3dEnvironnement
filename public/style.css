@@ -9,18 +9,8 @@ main {
 
 canvas {
   display: block;
-
-  /*todo: déformation du canvas, je ne mettrais pas ceci*/
-  max-width: 100vh;
-  max-height: 100vh;
-  /*-----*/
-
-  /*todo: ici, décommenter ce code,
-     pour avoir les canvas en plein et centré,
-     dans tous les écrans*/
   width: 100% !important;
   height: 100% !important;
   margin: auto;
   object-fit: contain;
-  /*-----*/
 }

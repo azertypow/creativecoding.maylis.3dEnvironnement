@@ -8,8 +8,7 @@ let data = {
     state = 0
 
 function setup() {
-    // todo: erreur taille du canvas
-    createCanvas(400, 400)
+    createCanvas(640, 360);
 }
 
 function draw() {
