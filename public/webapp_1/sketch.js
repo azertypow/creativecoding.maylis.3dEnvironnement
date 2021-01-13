@@ -3,9 +3,9 @@ const socket = io.connect('http://localhost:3000')
 
 
 // Five moving bodies
-let movers = [];
-let b = [];
-let bubbles = [];
+let arrayOfMover = [];
+let arrayOfBall = [];
+let arrayOfBubble = [];
 
 
 var state = 0;  //
@@ -26,17 +26,17 @@ var ypos;
 
 function setup() {
     createCanvas(640, 360);
-    reset();
+    resetElementsInSketch({numberOfMover: 9});
     frameRate(60);
 
     for (let i = 0; i < 9; i++) {
-        bubbles[i] = new Bubble(0, 0);
+        arrayOfBubble[i] = new Bubble(0, 0);
     }
 
     gravity4 = createVector(-0.010, 0.150);
 
     for (var i = 0; i < numBalls; i++) {
-        b[i] = new Ball();
+        arrayOfBall[i] = new Ball();
     }
 
     colorA = color(253);
@@ -58,6 +58,11 @@ function draw() {
     setGradient(c1, c2);
 
 
+    console.log( "state: ", state )
+    console.log( "arrayOfMover: ", arrayOfMover )
+    console.log( "arrayOfBall: ", arrayOfBall )
+    console.log( "arrayOfBubble: ", arrayOfBubble )
+
     switch (state) {
 
         case -1:
@@ -67,15 +72,15 @@ function draw() {
 
             barre.display0();
 
-            for (let i = 0; i < movers.length; i++) {
+            for (let item of arrayOfMover) {
 
-                let gravity = createVector(0, 0.1 * movers[i].mass);
-                movers[i].applyForce(gravity);
+                let gravity = createVector(0, 0.1 * item.mass);
+                item.applyForce(gravity);
 
-                movers[i].update0();
-                movers[i].display0();
-                movers[i].checkEdges();
-                movers[i].checkRectangleEdges0();
+                item.update0();
+                item.display0();
+                item.checkEdges();
+                item.checkRectangleEdges0();
             }
 
             frame(15);
@@ -83,12 +88,11 @@ function draw() {
             break;
 
         case 1:
-
             barre.display1();
 
-            for (let i = 0; i < movers.length; i++) {
-                movers[i].update1();
-                movers[i].display1();
+            for (let item of arrayOfMover) {
+                item.update1();
+                item.display1();
             }
 
             frame(30);
@@ -98,11 +102,10 @@ function draw() {
         case 2:
             barre.display2();
 
-            for (let i = 0; i < bubbles.length; i++) {
-                bubbles[i].update();
-                bubbles[i].display();
-                bubbles[i].edges();
-
+            for (let item of arrayOfBubble) {
+                item.update();
+                item.display();
+                item.edges();
             }
 
             frame(45);
@@ -113,8 +116,8 @@ function draw() {
             frameRate(10);
             barre.display3();
 
-            for (let i = 0; i < bubbles.length; i++) {
-                bubbles[i].display3();
+            for (let i = 0; i < arrayOfBubble.length; i++) {
+                arrayOfBubble[i].display3();
             }
 
             frame(60);
@@ -125,11 +128,11 @@ function draw() {
             frameRate(60);
             barre.display4();
 
-            for (let i = 0; i < b.length; i++) {
-                b[i].update();
-                b[i].show();
-                b[i].edges();
-                b[i].applyForce(gravity4);
+            for (let item of arrayOfBall) {
+                item.update();
+                item.show();
+                item.edges();
+                item.applyForce(gravity4);
             }
 
             frame(75);
@@ -140,9 +143,8 @@ function draw() {
             frameRate(2);
             barre.display5();
 
-
-            for (let i = 0; i < bubbles.length; i++) {
-                bubbles[i].display5();
+            for (let bubble of arrayOfBubble) {
+                bubble.display5()
             }
 
             frame(90);
@@ -152,9 +154,9 @@ function draw() {
         case 6:
             barre.display6();
 
-            for (let i = 0; i < bubbles.length; i++) {
+            for (let item of arrayOfBubble) {
                 frameRate(2);
-                bubbles[i].display6();
+                item.display6();
             }
 
             frame(105);
@@ -165,10 +167,10 @@ function draw() {
             frameRate(60);
 
 
-            for (let i = 0; i < bubbles.length; i++) {
-                //bubbles[i].update7();
-                bubbles[i].display7();
-                bubbles[i].edges7();
+            for (let item of arrayOfBubble) {
+                //arrayOfBubble[i].update7();
+                item.display7();
+                item.edges7();
             }
 
             barre.display7();
@@ -183,7 +185,7 @@ function draw() {
             while (count < total) {
                 var newC = newCircle();
                 if (newC !== null) {
-                    bubbles.push(newC);
+                    arrayOfBubble.push(newC);
                     count++;
                 }
                 attempts++;
@@ -194,19 +196,19 @@ function draw() {
                 }
             }
 
-            for (let i = 0; i < bubbles.length; i++) {
-                if (bubbles[i].growing) {
-                    if (bubbles[i].edges()) {
-                        bubbles[i].growing = false;
+            for (let i = 0; i < arrayOfBubble.length; i++) {
+                if (arrayOfBubble[i].growing) {
+                    if (arrayOfBubble[i].edges()) {
+                        arrayOfBubble[i].growing = false;
                     } else {
-                        for (var j = 0; j < bubbles.length; j++) {
-                            var other = bubbles[j];
-                            if (bubbles[i] !== other) {
-                                var d = dist(bubbles[i].x, bubbles[i].y, other.x, other.y);
-                                var distance = bubbles[i].r8 + other.r8;
+                        for (var j = 0; j < arrayOfBubble.length; j++) {
+                            var other = arrayOfBubble[j];
+                            if (arrayOfBubble[i] !== other) {
+                                var d = dist(arrayOfBubble[i].x, arrayOfBubble[i].y, other.x, other.y);
+                                var distance = arrayOfBubble[i].r8 + other.r8;
 
                                 if (d - 2 < distance) {
-                                    bubbles[i].growing = false;
+                                    arrayOfBubble[i].growing = false;
                                     break;
                                 }
                             }
@@ -214,9 +216,9 @@ function draw() {
                     }
                 }
 
-                bubbles[i].update8();
-                bubbles[i].display8();
-                bubbles[i].edges8();
+                arrayOfBubble[i].update8();
+                arrayOfBubble[i].display8();
+                arrayOfBubble[i].edges8();
             }
 
             barre.display8();
@@ -226,16 +228,16 @@ function draw() {
         case 9:
             barre.display9();
 
-            for (let i = 0; i < bubbles.length; i++) {
-                bubbles[i].update9();
-                bubbles[i].display9();
-                bubbles[i].edges9();
+            for (let item of arrayOfBubble) {
+                item.update9();
+                item.display9();
+                item.edges9();
             }
             frame(150);
             break;
     }
 
-    const arrayOfMovers = movers.map( mover => {
+    const dataArrayOfMovers = arrayOfMover.map(mover => {
         return {
             x: mover.position.x,
             y: mover.position.y,
@@ -243,7 +245,7 @@ function draw() {
         }
     })
 
-    const arrayOfBubbles = bubbles.map( bubble => {
+    const dataArrayOfBubbles = arrayOfBubble.map(bubble => {
         return {
             x: bubble.x,
             y: bubble.y,
@@ -252,15 +254,28 @@ function draw() {
     })
 
     socket.emit("newSketchData", {
-        arrayOfMovers,
-        arrayOfBubbles,
-        /*balls : b,*/
+        arrayOfMovers: dataArrayOfMovers,
+        arrayOfBubbles: dataArrayOfBubbles,
+        /*balls : arrayOfBall,*/
     })
 
 }
 
 socket.on("stateUpdated", newState => {
+
     state = newState
+
+    switch (state) {
+        case 1 :
+            resetElementsInSketch({})
+            break
+
+        case 2 :
+            resetElementsInSketch({
+                numberOfMover: 0
+            })
+            break
+    }
 })
 
 new AreaDetections(() => {
@@ -268,9 +283,36 @@ new AreaDetections(() => {
     console.log("emit stateChange")
 })
 
-function reset() {
-    for (let i = 0; i < 9; i++) {
-        movers[i] = new Mover(random(0.5, 3), 40 + i * 70, 0);
+/**
+ * @param numberOfMover     {number | undefined}
+ * @param numberOfBubbles   {number | undefined}
+ * @param numberOfBalls     {number | undefined}
+ */
+function resetElementsInSketch({
+                                   numberOfMover,
+                                   numberOfBubbles,
+                                   numberOfBalls,
+                               }) {
+
+    if(numberOfMover !== undefined) {
+        arrayOfMover = []
+        for (let i = 0; i < numberOfMover; i++) {
+            arrayOfMover[i] = new Mover(random(0.5, 3), 40 + i * 70, 0);
+        }
+    }
+
+    if(numberOfBubbles !== undefined) {
+        arrayOfBubble = []
+        for(let i = 0; i < numberOfBubbles; i++) {
+            arrayOfBubble[i] = new Bubble(0, 0)
+        }
+    }
+
+    if(numberOfBalls !== undefined) {
+        arrayOfBall = []
+        for(let i = 0; i < numberOfBalls; i++) {
+            arrayOfBall[i] = new Ball()
+        }
     }
 }
 
