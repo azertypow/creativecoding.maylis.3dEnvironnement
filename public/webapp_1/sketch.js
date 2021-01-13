@@ -1,3 +1,4 @@
+//const socket = io.connect('http://192.168.43.175:3000')
 const socket = io.connect('http://localhost:3000')
 
 
@@ -7,7 +8,7 @@ let b = [];
 let bubbles = [];
 
 
-var state = 0;
+var state = 0;  //
 var fade;
 var fadeAmount;
 var r; //radius
@@ -41,7 +42,7 @@ let phrases = [
 
     "I feel nothing. I am locked in this space. \nI try to interact with this outside space,\nbut no one notice my attempts. \nI am trapped."
 ];
-let timer;
+let timer = 0;
 let fadeOut = 255;
 
 
@@ -51,7 +52,7 @@ function setup() {
     frameRate(60);
 
     for (let i = 0; i < 9; i++) {
-        bubbles[i] = new Bubble();
+        bubbles[i] = new Bubble(0, 0);
     }
 
     gravity4 = createVector(-0.010, 0.150);
@@ -142,7 +143,6 @@ function draw() {
 
             for (let i = 0; i < bubbles.length; i++) {
                 bubbles[i].display3();
-                debugger
             }
 
             frame(60);
@@ -198,12 +198,13 @@ function draw() {
 
 
             for (let i = 0; i < bubbles.length; i++) {
+                //bubbles[i].update7();
                 bubbles[i].display7();
                 bubbles[i].edges7();
             }
 
             barre.display7();
-            frame(120);
+           frame(120);
             break;
 
         case 8:
@@ -262,7 +263,7 @@ function draw() {
 
             for (let i = 0; i < bubbles.length; i++) {
                 bubbles[i].update9();
-                bubbles[i].display9(width/2, height/2 + 16);
+                bubbles[i].display9();
                 bubbles[i].edges9();
             }
             frame(150);
@@ -290,10 +291,12 @@ function draw() {
         arrayOfBubbles,
         /*balls : b,*/
     })
+
 }
 
 function keyPressed() {
     timer = millis();
+    fadeOut = 255;
 
 
     if (key == "z") {
@@ -307,8 +310,8 @@ function keyPressed() {
         }
         state = 1;
     } else if (key == "c") {
-        for (let i = 0; i < movers.length; i++) {
-            movers[i].randomOrder2();
+        for (let i = 0; i < bubbles.length; i++) {
+            bubbles[i].randomOrder2();
         }
         state = 2;
     } else if (key == "d") {
@@ -322,6 +325,9 @@ function keyPressed() {
     } else if (key == "h") {
         state = 7;
     } else if (key == "i") {
+        for (let i = 0; i < bubbles.length; i++) {
+            bubbles[i].randomOrder3();
+        }
         state = 8;
     } else if (key == "j") {
         state = 9;

@@ -31,17 +31,19 @@ function Bubble(x,y) {
 
   this.display = function() {
     noStroke();
-    fill(255);
+    fill(195);
     ellipse(this.x, this.y, this.r, this.r);
   }
 
   this.display3 = function() {
     let jump = 80;
-    for (this.y = 0; this.y < 3; this.y++) {
-      for (this.x = 0; this.x < 3; this.x++) {
+    for (let row = 0; row < 3; row++) {
+      for (let column = 0; column < 3; column++) {
         noStroke();
-        fill(255, random(5, 200));
-        ellipse(this.x * (jump + 100) + 140, this.y * jump + 95, this.r, this.r);
+        fill(165, random(5, 200));
+        this.x = column * (jump + 100) + 140;
+        this.y = row * jump + 95;
+        ellipse(this.x , this.y, this.r, this.r);
       }
     }
   }
@@ -53,8 +55,8 @@ function Bubble(x,y) {
       for (let column = 0; column < 11; column++) {
         noStroke();
         fill(random(255));
-        this.x = column * (jump - 6) + 100
-        this.y = row * jump + 95
+        this.x = column * (jump - 6) + 100;
+        this.y = row * jump + 95;
         ellipse(this.x, this.y, 30, 30);
       }
     }
@@ -63,51 +65,37 @@ function Bubble(x,y) {
 
   this.display6 = function() {
     let jump = 60;
-    for (this.y = 0; this.y < 5; this.y++) {
+    for (let column = 0; column < 5; column++) {
       j = Math.floor(random(binaireArray.length));
       binaireColor = binaireArray[j];
       noStroke();
       fill(binaireColor);
-      ellipse(width / 2, this.y * jump + 95, 45, 45);
+      this.y = column * jump + 95;
+      this.x = width/2;
+      ellipse(this.x, this.y, 45, 45);
     }
   }
 
   this.display7 = function() {
+    this.x += this.xspeed;
+    this.y += this.yspeed;
     noStroke();
     fill(200);
-
-    //ellipse 1 Top Left
-    x1 = x1 + move;
-    y1 = y1 + move;
-    ellipse(x1, y1, 40, 40);
-
-    //ellipse 2 Bottom Right
-    x2 = x2 - move;
-    y2 = y2 - move;
-    ellipse(x2, y2, 40, 40);
-
-    //ellipse 3 Top Right
-    x3 = x3 + move;
-    y3 = y3 - move;
-    ellipse(x3, y3, 40, 40);
-
-    //ellipse 4 Bottom Left
-    x4 = x4 - move;
-    y4 = y4 + move;
-    ellipse(x4, y4, 40, 40);
-
+    ellipse(this.x, this.y, 40, 40);
   }
 
-  this.display8 = function(x,y) {
+  this.display8 = function() {
     noStroke();
-    fill(255);
-    ellipse(x, y, this.r8 * 2, this.r8 * 2);
+    fill(0);
+    ellipse(this.x, this.y, this.r8 * 2, this.r8 * 2);
   }
 
-  this.display9 = function(x,y) {
+  this.display9 = function() {
     noStroke();
     fill(255);
-    ellipse(x,y, this.r9, this.r9);
+    this.x = width/2;
+    this.y = height/2 + 16;
+    ellipse(this.x,this.y, this.r9, this.r9);
   }
 
   this.update = function() {
@@ -133,8 +121,9 @@ function Bubble(x,y) {
   }
 
   this.edges7 = function() {
-    if (y1 > height - 80 || y1 < 80) {
-      move *= -1;
+    if (this.x >= width || this.y >= height || this.x < -1 || this.x < -1) {
+      this.xspeed = - this.xspeed;
+      this.yspeed = - this.yspeed;
     }
   }
 
@@ -154,6 +143,16 @@ function Bubble(x,y) {
       move *= 1;
       this.r9 += move;
     }
+  }
+
+  this.randomOrder2 = function() {
+    this.x = random(200, 400);
+    this.y = random(110,200);
+  }
+
+  this.randomOrder3 = function() {
+    this.x = random(640);
+    this.y = random(360);
   }
 
 }

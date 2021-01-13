@@ -1,3 +1,4 @@
+//const socket = io.connect('http://192.168.43.175:3000')
 const socket = io.connect('http://localhost:3000')
 
 let data = {

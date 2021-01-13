@@ -30,11 +30,6 @@ function Mover(m, x, y, z = 1) {
     this.mass = random(20, 60);
   }
 
-  this.randomOrder2 = function() {
-    this.position.x = random(width);
-    this.position.y = random(height);
-    this.mass = random(1, 60);
-  }
 
 
   this.update1 = function() {
@@ -57,7 +52,7 @@ function Mover(m, x, y, z = 1) {
     translate(width / 2, height / 2);
     rotate(this.angle);
     noStroke();
-    fill(255, fade);
+    fill(225, fade);
     ellipse(this.position.x, this.position.y, this.mass, this.mass);
     pop();
   };
