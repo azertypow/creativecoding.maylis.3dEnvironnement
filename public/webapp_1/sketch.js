@@ -250,10 +250,18 @@ function draw() {
         }
     })
 
+    const dataArrayOfBalls = arrayOfBall.map(ball => {
+        return {
+            x: ball.x,
+            y: ball.y,
+            z: ball.z,
+        }
+    })
+
     socket.emit("newSketchData", {
         arrayOfMovers: dataArrayOfMovers,
         arrayOfBubbles: dataArrayOfBubbles,
-        /*balls : arrayOfBall,*/
+        arrayOfBalls: dataArrayOfBalls,
     })
 
 }

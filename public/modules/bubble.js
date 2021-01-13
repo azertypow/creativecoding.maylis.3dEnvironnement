@@ -1,6 +1,7 @@
 function Bubble(x,y) {
   this.x = x;
   this.y = y;
+  this.z = 1;
   this.r = random(10, 60);
   this.r9 = 1.2;
   this.r8 = 3;
