@@ -16,15 +16,15 @@ function draw() {
     background(0, 0, 255)
 
     for(const mover of data.arrayOfMovers) {
-        ellipse(mover.y, mover.z, 10, 10)
+        ellipse(mover.z, mover.y, 10, 10)
     }
 
     for(const bubble of data.arrayOfBubbles) {
-        ellipse(bubble.y, bubble.z, 20, 20)
+        ellipse(bubble.z, bubble.y, 20, 20)
     }
 
     for(const ball of data.arrayOfBalls) {
-        ellipse(ball.y, ball.z, 30, 30)
+        ellipse(ball.z, ball.y, 30, 30)
     }
 }
 

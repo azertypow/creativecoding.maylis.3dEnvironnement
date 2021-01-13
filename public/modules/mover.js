@@ -1,4 +1,4 @@
-function Mover(m, x, y, z = 1) {
+function Mover(m, x, y, z = width / 4) {
   /*this.x = x;
   this.y = y;
   this.z = 1;*/
