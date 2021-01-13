@@ -49,12 +49,6 @@ function draw() {
   textBox();
 }
 
-
-function keyPressed() {
-    socket.emit( "stateChange", getNexState(state) )
-    console.log("emit stateChange")
-}
-
 function textBox() {
 
     if (millis() - timer < 6000) {
