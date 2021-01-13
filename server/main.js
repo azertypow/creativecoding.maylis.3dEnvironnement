@@ -28,6 +28,11 @@ io.sockets.on('connection', socket => {
 	socket.on('newSketchData', data => {
 		onNewSketchData(data, socket)
 	})
+
+	socket.on('stateChange', data => {
+		console.log("stateChange ", data)
+		io.emit('stateUpdated',data)
+	})
 })
 
 function onNewSketchData(data, socket) {

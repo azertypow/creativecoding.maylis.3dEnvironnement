@@ -4,9 +4,11 @@ const socket = io.connect('http://localhost:3000')
 let data = {
     arrayOfMovers:[],
     arrayOfBubbles: [],
-}
+},
+    state = 0
 
 function setup() {
+    // todo: erreur taille du canvas
     createCanvas(400, 400)
 }
 
@@ -18,6 +20,16 @@ function draw() {
     }
 }
 
+function keyPressed() {
+    socket.emit( "stateChange", getNexState(state) )
+    console.log("emit stateChange")
+}
+
 socket.on('sketchDataUpdated', (dataFromServer) => {
     data = dataFromServer
+})
+
+socket.on("stateUpdated", newState => {
+    state = newState
+    console.log(newState)
 })

@@ -23,6 +23,8 @@ var gravity4;
 let barre = new Barre(10, 10);
 var xpos;
 var ypos;
+
+// todo: remove this code
 let phrases = [
     "Question fall on me like snowballs.Where am I ? \nThey push in a strange place, where I feel lost. \nIs it old outside ? Who are you ? \nWhat’s your favorite color ?",
 
@@ -44,9 +46,12 @@ let phrases = [
 ];
 let timer = 0;
 let fadeOut = 255;
+// -----
+
 
 
 function setup() {
+    // todo: erreur taille du canvas
     createCanvas(640, 360);
     reset();
     frameRate(60);
@@ -294,44 +299,52 @@ function draw() {
 
 }
 
+socket.on("stateUpdated", newState => {
+    state = newState
+})
+
 function keyPressed() {
-    timer = millis();
-    fadeOut = 255;
+    socket.emit( "stateChange", getNexState(state) )
+    console.log("emit stateChange")
 
-
-    if (key == "z") {
-        state = -1;
-    } else if (key == "a") {
-        state = 0;
-    } else if (key == "b") {
-
-        for (let i = 0; i < movers.length; i++) {
-            movers[i].randomOrder();
-        }
-        state = 1;
-    } else if (key == "c") {
-        for (let i = 0; i < bubbles.length; i++) {
-            bubbles[i].randomOrder2();
-        }
-        state = 2;
-    } else if (key == "d") {
-        state = 3;
-    } else if (key == "e") {
-        state = 4;
-    } else if (key == "f") {
-        state = 5;
-    } else if (key == "g") {
-        state = 6;
-    } else if (key == "h") {
-        state = 7;
-    } else if (key == "i") {
-        for (let i = 0; i < bubbles.length; i++) {
-            bubbles[i].randomOrder3();
-        }
-        state = 8;
-    } else if (key == "j") {
-        state = 9;
-    }
+    // todo: remove this code
+    // timer = millis();
+    // fadeOut = 255;
+    //
+    // if (key == "z") {
+    //     state = -1;
+    // } else if (key == "a") {
+    //     state = 0;
+    // } else if (key == "b") {
+    //
+    //     for (let i = 0; i < movers.length; i++) {
+    //         movers[i].randomOrder();
+    //     }
+    //     state = 1;
+    // } else if (key == "c") {
+    //     for (let i = 0; i < bubbles.length; i++) {
+    //         bubbles[i].randomOrder2();
+    //     }
+    //     state = 2;
+    // } else if (key == "d") {
+    //     state = 3;
+    // } else if (key == "e") {
+    //     state = 4;
+    // } else if (key == "f") {
+    //     state = 5;
+    // } else if (key == "g") {
+    //     state = 6;
+    // } else if (key == "h") {
+    //     state = 7;
+    // } else if (key == "i") {
+    //     for (let i = 0; i < bubbles.length; i++) {
+    //         bubbles[i].randomOrder3();
+    //     }
+    //     state = 8;
+    // } else if (key == "j") {
+    //     state = 9;
+    // }
+    // -----
 
 }
 
@@ -372,4 +385,4 @@ function frame(strokeW) {
     stroke(0, 0, 255);
     strokeWeight(strokeW);
     rect(0, 0, width, height);
-};
+}
