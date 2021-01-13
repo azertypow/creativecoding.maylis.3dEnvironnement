@@ -19,10 +19,10 @@ function draw() {
     }
 }
 
-function keyPressed() {
+new AreaDetections(() => {
     socket.emit( "stateChange", getNexState(state) )
     console.log("emit stateChange")
-}
+})
 
 socket.on('sketchDataUpdated', (dataFromServer) => {
     data = dataFromServer

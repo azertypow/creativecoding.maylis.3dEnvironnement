@@ -263,10 +263,10 @@ socket.on("stateUpdated", newState => {
     state = newState
 })
 
-function keyPressed() {
+new AreaDetections(() => {
     socket.emit( "stateChange", getNexState(state) )
     console.log("emit stateChange")
-}
+})
 
 function reset() {
     for (let i = 0; i < 9; i++) {
