@@ -3,6 +3,8 @@
 ## how to install
 
 1. download or clone projet
+
+![capture](./public/00.png)
    
 2. open terminal in project directory
    ```
