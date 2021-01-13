@@ -17,6 +17,7 @@ var angleCase5 = 45;
 let jump = 40;
 
 var numBalls = 200;
+const numberOfBubble = 9
 var gravity4;
 
 //let frame = new Frame(10, 10);
@@ -26,18 +27,14 @@ var ypos;
 
 function setup() {
     createCanvas(640, 360);
-    resetElementsInSketch({numberOfMover: 9});
+    resetElementsInSketch({
+        numberOfMover: 9,
+        numberOfBalls: 0,
+        numberOfBubbles: 0,
+    });
     frameRate(60);
 
-    for (let i = 0; i < 9; i++) {
-        arrayOfBubble[i] = new Bubble(0, 0);
-    }
-
     gravity4 = createVector(-0.010, 0.150);
-
-    for (var i = 0; i < numBalls; i++) {
-        arrayOfBall[i] = new Ball();
-    }
 
     colorA = color(253);
     colorB = color(226);
@@ -266,13 +263,24 @@ socket.on("stateUpdated", newState => {
     state = newState
 
     switch (state) {
-        case 1 :
-            resetElementsInSketch({})
-            break
-
         case 2 :
             resetElementsInSketch({
-                numberOfMover: 0
+                numberOfMover: 0,
+                numberOfBubbles: numberOfBubble,
+            })
+            break
+
+        case 4 :
+            resetElementsInSketch({
+                numberOfBubbles: 0,
+                numberOfBalls: numBalls,
+            })
+            break
+
+        case 5 :
+            resetElementsInSketch({
+                numberOfBubbles: numberOfBubble,
+                numberOfBalls: 0,
             })
             break
     }

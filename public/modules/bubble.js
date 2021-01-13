@@ -162,9 +162,9 @@ function newCircle() {
   var y = random(height);
   var valid = true;
 
-  for (var i = 0; i < bubbles.length; i++) {
-    var d = dist(x, y, bubbles[i].x, bubbles[i].y);
-    if (d < bubbles[i].r8) {
+  for (var i = 0; i < arrayOfBubble.length; i++) {  // todo: //!\\ ne jamais jamais faire ceci! (référence trop loin!)
+    var d = dist(x, y, arrayOfBubble[i].x, arrayOfBubble[i].y);
+    if (d < arrayOfBubble[i].r8) {
       valid = false;
       break;
     }
