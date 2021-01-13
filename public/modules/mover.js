@@ -53,7 +53,7 @@ function Mover(m, x, y, z = width / 4) {
     rotate(this.angle);
     noStroke();
     fill(225, fade);
-    ellipse(this.position.x, this.position.y, this.mass, this.mass);
+    ellipse(this.position.x, this.position.y, this.mass * 16, this.mass * 16);
     pop();
   };
 

@@ -315,12 +315,20 @@ function resetElementsInSketch({
         for (let i = 0; i < numberOfMover; i++) {
             arrayOfMover[i] = new Mover(random(0.5, 3), 40 + i * 70, 0);
         }
+    } else if(state === 1) {
+        for (let i = 0; i < arrayOfMover.length; i++) {
+            arrayOfMover[i].randomOrder2();
+        }
     }
 
     if(numberOfBubbles !== undefined) {
         arrayOfBubble = []
         for(let i = 0; i < numberOfBubbles; i++) {
-            arrayOfBubble[i] = new Bubble(0, 0)
+            arrayOfBubble[i] = new Bubble(100, 100)
+        }
+    } else if(state === 2) {
+        for (let i = 0; i < arrayOfBubble.length; i++) {
+            arrayOfBubble[i].randomOrder2();
         }
     }
 
